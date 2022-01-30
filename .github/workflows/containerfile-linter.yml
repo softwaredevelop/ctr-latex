@@ -1,11 +1,6 @@
 name: Containerfile Lint
 
 on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - "Containerfile"
   pull_request:
     branches:
       - "main"
