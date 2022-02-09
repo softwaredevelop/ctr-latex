@@ -1,4 +1,4 @@
-name: Containerfile Lint
+name: Containerfile Linter
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - "Containerfile"
 
 jobs:
-  lint:
+  run-lint:
     name: Hadolint Action
     runs-on: ubuntu-latest
     steps:
