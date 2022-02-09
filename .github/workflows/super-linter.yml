@@ -29,5 +29,4 @@ jobs:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_EDITORCONFIG: true
-          VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_GITHUB_ACTIONS: true
