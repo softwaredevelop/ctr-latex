@@ -34,3 +34,18 @@ jobs:
         uses: hadolint/hadolint-action@v1.6.0
         with:
           dockerfile: Containerfile
+
+  scan:
+    name: Scan config files for vulnerabilities
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/aquasec/trivy:latest
+      volumes:
+        - "${{ github.workspace }}:/volume"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Scan config Containerfiles for vulnerabilities
+        run: |
+          trivy config --severity CRITICAL,HIGH --file-patterns "dockerfile:Containerfile" /volume
