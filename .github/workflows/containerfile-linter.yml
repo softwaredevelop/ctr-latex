@@ -50,4 +50,7 @@ jobs:
 
       - name: Scan config Containerfiles for vulnerabilities
         run: |
-          trivy config --severity CRITICAL,HIGH --file-patterns "dockerfile:Containerfile" /volume
+          trivy config \
+          --severity CRITICAL,HIGH \
+          --file-patterns "dockerfile:Containerfile" \
+          /volume
