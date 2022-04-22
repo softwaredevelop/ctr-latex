@@ -36,6 +36,7 @@ jobs:
           dockerfile: Containerfile
 
   scan:
+    needs: run-lint
     name: Scan config files for vulnerabilities
     runs-on: ubuntu-latest
     container:
