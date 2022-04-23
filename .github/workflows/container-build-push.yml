@@ -2,9 +2,9 @@
 name: Container Build & Push
 
 on:
-  push:
-    branches:
-      - "main"
+  workflow_run:
+    workflows: [Containerfile Linter]
+    types: [completed]
     paths:
       - "Containerfile"
 
@@ -24,6 +24,7 @@ jobs:
           concurrent_skipping: never
 
   docker-hub:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Container Build and Push to Docker Hub
     runs-on: ubuntu-latest
     environment: dockerhub
@@ -49,6 +50,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.REPOSITORY }}:latest
 
   azure-container-registry:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Container Build and Push to ACR
     runs-on: ubuntu-latest
     environment: acr
