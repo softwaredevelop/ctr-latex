@@ -3,8 +3,9 @@ FROM docker.io/library/debian:$VARIANT
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends --assume-yes \
+RUN \
+    apt-get update; \
+    apt-get install --no-install-recommends --assume-yes \
     biber \
     chktex \
     cm-super \
@@ -43,5 +44,5 @@ RUN apt-get update \
     texlive-plain-generic \
     texlive-pstricks \
     texlive-science \
-    texlive-xetex \
-    && apt-get clean && rm -fr /var/lib/apt/lists/*
+    texlive-xetex; \
+    apt-get clean && rm -fr /var/lib/apt/lists/*
