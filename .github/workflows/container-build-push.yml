@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push to Docker Hub
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           file: ./Containerfile
           push: true
@@ -69,7 +69,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Build and push to ACR
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           file: ./Containerfile
           push: true
