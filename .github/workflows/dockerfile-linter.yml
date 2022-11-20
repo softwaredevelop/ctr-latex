@@ -1,0 +1,73 @@
+---
+name: Dockerfile Linter
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "Dockerfile.*"
+      - "Dockerfile"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - "Dockerfile.*"
+      - "Dockerfile"
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  skip-duplicate-actions:
+    name: Skip Duplicate Actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fkirc/skip-duplicate-actions@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          cancel_others: true
+          concurrent_skipping: never
+
+  run-hadolint:
+    name: Hadolint Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: Dockerfile
+
+  run-hadolint-debian:
+    name: Hadolint Action .debian
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Hadolint
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: Dockerfile.debian
+
+  trivy-scan:
+    name: Trivy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          format: "table"
+          ignore-unfixed: true
+          scan-type: "config"
+          severity: "CRITICAL,HIGH"
+          trivyignores: ".trivyignore"
