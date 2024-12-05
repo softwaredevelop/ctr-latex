@@ -11,6 +11,16 @@ updates:
     labels:
       - "github-actions dependencies"
 
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "friday"
+      time: "00:00"
+      timezone: "Europe/Berlin"
+    labels:
+      - "go-modules dependencies"
+
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
