@@ -12,7 +12,7 @@ RUN \
     dvidvi \
     dvipng \
     fragmaster \
-    # git \
+    git \
     lacheck \
     latexdiff \
     latexmk \
