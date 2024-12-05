@@ -1,0 +1,5 @@
+name: ctr
+runtime: go
+description: This is a repository for containerized LaTeX environments
+options:
+  refresh: always
